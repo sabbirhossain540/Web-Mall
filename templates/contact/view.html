@@ -1,36 +1,4 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-
-def home_page(request):
-    context = {
-        "title" : "Home Page",
-        "content" : "Welcome To Home Page"
-    }
-    return render(request, "home_page.html", context)
-
-def about_page(request):
-    context = {
-        "title" : "About Page",
-        "content" : "Welcome To About Page"
-    }
-    return render(request, "home_page.html", context)
-
-def contact_page(request):
-    context = {
-        "title" : "Contact Page",
-        "content" : "Welcome To Contact Page"
-    }
-    if request.method == "POST":
-        print(request.POST.get('fullname'))
-        print(request.POST.get('email'))
-        print(request.POST.get('content'))
-    return render(request, "contact/view.html", context)
-
-
-
-def home_page_old(request):
-    html_ = """
-    <!doctype html>
+<!doctype html>
     <html lang="en">
     <head>
         <!-- Required meta tags -->
@@ -43,8 +11,26 @@ def home_page_old(request):
         <title>Hello, world!</title>
     </head>
     <body>
-        <h1>Hello, world!</h1>
-
+        <div class="text-center">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                   <p>{{ content }}</p> 
+                   <div class="col-sm-6 col-12">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="text" class="form-control" placeholder="Name" name="fullname">
+                            <input type="email" class="form-control" placeholder="Email" name="email">
+                            <textarea name="content" class="form-control" placeholder="Your Content" cols="30" rows="6"></textarea>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                   </div>
+                   
+                </div>
+            </div>
+        </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -52,6 +38,3 @@ def home_page_old(request):
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     </body>
     </html>
-
-    """
-    return HttpResponse(html_)
