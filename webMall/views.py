@@ -1,16 +1,22 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, get_user_model
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 #Django From Import
-from .forms import ContactForm, LoginForm
+from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
     context = {
         "title" : "Home Page",
         "content" : "Welcome To Home Page"
     }
+    if request.user.is_authenticated:
+        context["Premium_content"] = "YeHHHHH"
     return render(request, "home_page.html", context)
+
+
+
+
 
 def about_page(request):
     context = {
@@ -18,6 +24,10 @@ def about_page(request):
         "content" : "Welcome To About Page"
     }
     return render(request, "home_page.html", context)
+
+
+
+
 
 def contact_page(request):
     contact_form = ContactForm(request.POST or None)
@@ -53,7 +63,7 @@ def login_page(request):
         if user is not None:
             login(request, user)
             #context['form'] = LoginForm()
-            return redirect("/login")
+            return redirect("/")
         else:
             print("error")
     return render(request, "auth/login.html", context)
@@ -61,13 +71,24 @@ def login_page(request):
 
 
 
-
+User = get_user_model()
 def register_page(request):
-    login_form = LoginForm(request.POST or None)
-    
-    if login_form.is_valid():
-        print(login_form.cleaned_data)
-    return render(request, "auth/register.html", {})
+    register_form = RegisterForm(request.POST or None)
+    context = {
+        "form": register_form
+    }
+
+    if register_form.is_valid():
+        print(register_form.cleaned_data)
+        username = register_form.cleaned_data.get("username")
+        email = register_form.cleaned_data.get("email")
+        password = register_form.cleaned_data.get("password")
+        naw_user = User.objects.create_user(username, email, password)
+        print(naw_user)
+    return render(request, "auth/register.html", context)
+
+
+
 
 
 def home_page_old(request):
