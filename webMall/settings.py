@@ -117,4 +117,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#For Static File Configuration
+
+STATIC_ROOT = os.path.join(os.path.join(BASE_DIR), "static_cdn", "static_root")
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "webMall/static_my_proj")
+]
+
+
+#For Media File Configuration
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.join(BASE_DIR), "static_cdn", "media_root")
+
+
