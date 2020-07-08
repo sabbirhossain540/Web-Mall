@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
     <html lang="en">
     <head>
@@ -17,9 +18,18 @@
         <div class="container">
             <div class="row">
                 <div class="col">
+                    <img src="{% static 'img/97531277_173832777428419_3148181087750979584_o.jpg' %}" alt="" class="img-fluid">
                    <p>{{ content }}</p> 
                 </div>
             </div>
+            {% if request.user.is_authenticated %}
+                <div class="row">
+                    <div class="col">
+                        <h1>Premium</h1>
+                    <p>{{ premium_content }}</p> 
+                    </div>
+                </div>
+            {% endif %}
         </div>
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
