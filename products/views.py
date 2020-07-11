@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
 #from django.views import Listview
 from django.views.generic import ListView, DetailView
 
@@ -33,7 +34,12 @@ class ProductDetailView(DetailView):
 
 def product_detail_view(request, pk, *args, **kwargs):
     #instance = Product.objects.get(pk=pk)
-    instance = get_object_or_404(Product, pk=pk)
+    # instance = get_object_or_404(Product, pk=pk)
+    qs = Product.objects.filter(id=pk)
+    if qs.exists() and qs.count() == 1:
+        instance = qs.first()
+    else:
+        raise Http404("Product Does Not Exists!!")
     context = {
         'object': instance
     }
