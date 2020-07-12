@@ -45,5 +45,7 @@ def product_detail_view(request, pk, *args, **kwargs):
     }
     return render(request, "product/product_detail.html", context)
 
+    
+
 
 
