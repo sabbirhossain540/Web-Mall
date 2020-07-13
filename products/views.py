@@ -56,6 +56,26 @@ def product_detail_view(request, pk, *args, **kwargs):
     return render(request, "product/product_detail.html", context)
 
 
+
+#Product Featured View
+
+class ProductFeaturdListView(ListView):
+    queryset = Product.objects.all().featured()
+    template_name = "product/product_list.html"
+
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(ProductListView, self).get_context_data(*args, **kwargs)
+    #     return context
+
+class ProductFeaturedDetailView(DetailView):
+    queryset = Product.objects.all().featured()
+    template_name = "product/featured_detail.html"
+    # def get_queryset(self, *args, **kwargs):
+    #     request = self.request
+    #     return Product.objects.featured()
+
+
+
     
 
 
