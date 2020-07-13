@@ -31,19 +31,30 @@ class ProductDetailView(DetailView):
     #     context = super(ProductListView, self).get_context_data(*args, **kwargs)
     #     return context
 
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        pk = self.kwargs.get('pk')
+        return Product.objects.filter(pk=pk)
+
 
 def product_detail_view(request, pk, *args, **kwargs):
     #instance = Product.objects.get(pk=pk)
     # instance = get_object_or_404(Product, pk=pk)
-    qs = Product.objects.filter(id=pk)
-    if qs.exists() and qs.count() == 1:
-        instance = qs.first()
-    else:
+    instance = Product.objects.get_by_id(pk)
+    print(instance)
+    if instance is None:
         raise Http404("Product Does Not Exists!!")
+
+    # qs = Product.objects.filter(id=pk)
+    # if qs.exists() and qs.count() == 1:
+    #     instance = qs.first()
+    # else:
+    #     raise Http404("Product Does Not Exists!!")
     context = {
         'object': instance
     }
     return render(request, "product/product_detail.html", context)
+
 
     
 
