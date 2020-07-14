@@ -1,4 +1,19 @@
+{% extends "base.html" %}
 
-{% for obj in object_list %}
-   <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a> <br>
-{% endfor %}
+{% block content %}
+   
+      <div class="container" >
+         <div class="row">
+            {% for obj in object_list %}
+               <div class="col-md-4 mb-3">
+                  <!-- Reusable List view Snippet -->
+                  {% include 'product/snippets/card.html' with instance=obj %}
+               </div>
+            {% endfor %}
+            </div>
+         </div>
+
+      
+      <!-- <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a> <br> -->
+   
+{% endblock %}
