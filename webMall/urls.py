@@ -33,11 +33,11 @@ from products.views import (
 from .views import home_page, about_page, contact_page, login_page, register_page
 
 urlpatterns = [
-    path('', home_page),
-    path('about/', about_page),
-    path('contact/', contact_page),
-    path('login/', login_page),
-    path('register/', register_page),
+    path('', home_page, name='home'),
+    path('about/', about_page ,name='about'),
+    path('contact/', contact_page, name='contact'),
+    path('login/', login_page, name='login'),
+    path('register/', register_page, name='register'),
     path('admin/', admin.site.urls),
     path('products/', include(('products.urls', 'products'), namespace="products"))
 
