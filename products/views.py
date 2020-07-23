@@ -73,6 +73,7 @@ class ProductFeaturedDetailView(DetailView):
     # def get_queryset(self, *args, **kwargs):
     #     request = self.request
     #     return Product.objects.featured()
+    
 
 class ProductDetailSlugView(DetailView):
     queryset = Product.objects.all()
