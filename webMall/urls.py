@@ -39,7 +39,8 @@ urlpatterns = [
     path('login/', login_page, name='login'),
     path('register/', register_page, name='register'),
     path('admin/', admin.site.urls),
-    path('products/', include(('products.urls', 'products'), namespace="products"))
+    path('products/', include(('products.urls', 'products'), namespace="products")),
+    path('search/', include(('search.urls', 'search'), namespace="search")),
 
     # path('products/', ProductListView.as_view()),
     # path('products-fbv/', product_list_view),
